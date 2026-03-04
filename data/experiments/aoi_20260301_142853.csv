@@ -1,0 +1,2 @@
+experiment_id,mean_aoi,max_aoi,p95_aoi,mean_ivt,max_ivt,mission_duration,fleet_size,localization_rmse,trajectory_strategy
+,1664.266112,1664.266112,1664.266112,0.000000,0.000000,1664.266112,3,1.000,lawnmower

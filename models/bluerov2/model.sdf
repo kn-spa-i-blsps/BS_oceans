@@ -1,0 +1,130 @@
+<?xml version="1.0"?>
+<sdf version="1.6">
+  <model name="bluerov2">
+    <pose>0 0 0 0 0 0</pose>
+
+    <link name="base_link">
+      <inertial>
+        <mass>11.3</mass>
+        <inertia>
+          <ixx>0.16</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.16</iyy>
+          <iyz>0</iyz>
+          <izz>0.26</izz>
+        </inertia>
+      </inertial>
+      <collision name="collision">
+        <geometry>
+          <box>
+            <size>0.25 0.18 0.12</size>
+          </box>
+        </geometry>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <mesh>
+            <uri>model://bluerov2/meshes/bluerov2.dae</uri>
+            <scale>0.45 0.45 0.45</scale>
+          </mesh>
+        </geometry>
+      </visual>
+
+      <sensor name="imu_sensor" type="imu">
+        <pose>0 0 0 3.142 0 0</pose>
+        <always_on>true</always_on>
+        <update_rate>1000.0</update_rate>
+      </sensor>
+    </link>
+
+    <!-- Thrusters (approximate layout) -->
+    <link name="thruster1_link"><pose>0.18 0.14 0 0 0 0</pose></link>
+    <link name="thruster2_link"><pose>0.18 -0.14 0 0 0 0</pose></link>
+    <link name="thruster3_link"><pose>-0.18 0.14 0 0 0 0</pose></link>
+    <link name="thruster4_link"><pose>-0.18 -0.14 0 0 0 0</pose></link>
+    <link name="thruster5_link"><pose>0.0 0.12 0.08 0 0 0</pose></link>
+    <link name="thruster6_link"><pose>0.0 -0.12 0.08 0 0 0</pose></link>
+
+    <joint name="thruster1_joint" type="revolute">
+      <parent>base_link</parent>
+      <child>thruster1_link</child>
+      <axis>
+        <xyz>0 0 1</xyz>
+        <limit><lower>-1e16</lower><upper>1e16</upper></limit>
+      </axis>
+    </joint>
+    <joint name="thruster2_joint" type="revolute">
+      <parent>base_link</parent>
+      <child>thruster2_link</child>
+      <axis>
+        <xyz>0 0 1</xyz>
+        <limit><lower>-1e16</lower><upper>1e16</upper></limit>
+      </axis>
+    </joint>
+    <joint name="thruster3_joint" type="revolute">
+      <parent>base_link</parent>
+      <child>thruster3_link</child>
+      <axis>
+        <xyz>0 0 1</xyz>
+        <limit><lower>-1e16</lower><upper>1e16</upper></limit>
+      </axis>
+    </joint>
+    <joint name="thruster4_joint" type="revolute">
+      <parent>base_link</parent>
+      <child>thruster4_link</child>
+      <axis>
+        <xyz>0 0 1</xyz>
+        <limit><lower>-1e16</lower><upper>1e16</upper></limit>
+      </axis>
+    </joint>
+    <joint name="thruster5_joint" type="revolute">
+      <parent>base_link</parent>
+      <child>thruster5_link</child>
+      <axis>
+        <xyz>0 1 0</xyz>
+        <limit><lower>-1e16</lower><upper>1e16</upper></limit>
+      </axis>
+    </joint>
+    <joint name="thruster6_joint" type="revolute">
+      <parent>base_link</parent>
+      <child>thruster6_link</child>
+      <axis>
+        <xyz>0 1 0</xyz>
+        <limit><lower>-1e16</lower><upper>1e16</upper></limit>
+      </axis>
+    </joint>
+
+
+    <plugin filename="gz-sim-hydrodynamics-system" name="gz::sim::systems::Hydrodynamics">
+      <link_name>base_link</link_name>
+      <xDotU>0</xDotU>
+      <yDotV>0</yDotV>
+      <zDotW>0</zDotW>
+      <kDotP>0</kDotP>
+      <mDotQ>0</mDotQ>
+      <nDotR>0</nDotR>
+      <xU>0</xU>
+      <yV>0</yV>
+      <zW>0</zW>
+      <kP>0</kP>
+      <mQ>0</mQ>
+      <nR>0</nR>
+      <xUabsU>-33.8</xUabsU>
+      <yVabsV>-54.269</yVabsV>
+      <zWabsW>-73.371</zWabsW>
+      <kPabsP>-4.0</kPabsP>
+      <mQabsQ>-4.0</mQabsQ>
+      <nRabsR>-4.0</nRabsR>
+    </plugin>
+
+    <plugin
+      filename="gz-sim-odometry-publisher-system"
+      name="gz::sim::systems::OdometryPublisher">
+      <odom_frame>map</odom_frame>
+      <robot_base_frame>base_link</robot_base_frame>
+      <dimensions>3</dimensions>
+      <odom_publish_frequency>100</odom_publish_frequency>
+    </plugin>
+  </model>
+</sdf>

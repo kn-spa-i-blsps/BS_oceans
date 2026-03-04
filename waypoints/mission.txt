@@ -1,0 +1,16 @@
+# Waypoints for each vehicle: name x y z
+
+bluerov1 2 2 1.5
+bluerov1 8 2 1.5
+bluerov1 8 8 1.5
+bluerov1 2 8 1.5
+
+bluerov2 5 5 2.0
+bluerov2 12 5 2.0
+bluerov2 12 12 2.0
+bluerov2 5 12 2.0
+
+bluerov3 3 10 1.2
+bluerov3 9 10 1.2
+bluerov3 9 16 1.2
+bluerov3 3 16 1.2

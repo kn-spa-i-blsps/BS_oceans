@@ -1,0 +1,482 @@
+<?xml version="1.0" ?>
+<sdf version="1.6">
+  <world name="buoyant_tethys">
+    <scene>
+      <ambient>0.0 1.0 1.0</ambient>
+      <background>0.0 0.7 0.8</background>
+    </scene>
+
+    <physics name="1ms" type="ode">
+      <max_step_size>0.001</max_step_size>
+      <real_time_factor>1.0</real_time_factor>
+    </physics>
+
+    <plugin filename="gz-sim-physics-system" name="gz::sim::systems::Physics">
+    </plugin>
+    <plugin filename="gz-sim-user-commands-system" name="gz::sim::systems::UserCommands">
+    </plugin>
+    <plugin filename="gz-sim-scene-broadcaster-system" name="gz::sim::systems::SceneBroadcaster">
+    </plugin>
+    <plugin filename="gz-sim-buoyancy-system" name="gz::sim::systems::Buoyancy">
+      <uniform_fluid_density>1000</uniform_fluid_density>
+    </plugin>
+    <plugin filename="gz-sim-apply-link-wrench-system"
+            name="gz::sim::systems::ApplyLinkWrench">
+    </plugin>
+
+    <light type="directional" name="sun">
+      <cast_shadows>true</cast_shadows>
+      <pose>0 0 10 0 0 0</pose>
+      <diffuse>1 1 1 1</diffuse>
+      <specular>0.5 0.5 0.5 1</specular>
+      <attenuation>
+        <range>1000</range>
+        <constant>0.9</constant>
+        <linear>0.01</linear>
+        <quadratic>0.001</quadratic>
+      </attenuation>
+      <direction>-0.5 0.1 -0.9</direction>
+    </light>
+
+    <!-- Seabed ground plane -->
+    <model name="seabed">
+      <static>true</static>
+      <pose>0 0 0 0 0 0</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <plane>
+              <normal>0 0 1</normal>
+              <size>200 200</size>
+            </plane>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <plane>
+              <normal>0 0 1</normal>
+              <size>200 200</size>
+            </plane>
+          </geometry>
+          <material>
+            <ambient>0.1 0.2 0.15 1</ambient>
+            <diffuse>0.1 0.2 0.15 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- Water surface (visual only) -->
+    <model name="water_surface">
+      <static>true</static>
+      <pose>0 0 0 0 0 0</pose>
+      <link name="link">
+        <visual name="visual">
+          <geometry>
+            <plane>
+              <normal>0 0 1</normal>
+              <size>200 200</size>
+            </plane>
+          </geometry>
+          <material>
+            <ambient>0.0 0.6 0.7 0.2</ambient>
+            <diffuse>0.0 0.6 0.7 0.2</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- Nieruchomy obiekt -->
+    <model name="obstacle_box">
+      <static>true</static>
+      <pose>8 4 0 0 0 0</pose>
+      <link name="link">
+        <visual name="visual">
+          <geometry><box><size>2 2 2</size></box></geometry>
+        </visual>
+        <collision name="collision">
+          <geometry><box><size>2 2 2</size></box></geometry>
+        </collision>
+      </link>
+    </model>
+
+    <!-- Seabed pipeline -->
+    <model name="pipeline">
+      <static>true</static>
+      <pose>10 10 0.2 0 0 0</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>30 0.4 0.4</size>
+            </box>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>30 0.4 0.4</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.5 0.4 0.3 1</ambient>
+            <diffuse>0.5 0.4 0.3 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    
+    <!-- ================= AUV #1 ================= -->
+    <include>
+      <name>bluerov1</name>
+      <pose>0 0 1 0 0 1.57</pose>
+      <uri>model://bluerov2</uri>
+
+      <plugin filename="gz-sim-thruster-system" name="gz::sim::systems::Thruster">
+        <namespace>bluerov1</namespace>
+        <joint_name>thruster1_joint</joint_name>
+        <thrust_coefficient>0.004422</thrust_coefficient>
+        <fluid_density>1000</fluid_density>
+        <propeller_diameter>0.1</propeller_diameter>
+      </plugin>
+      <plugin filename="gz-sim-thruster-system" name="gz::sim::systems::Thruster">
+        <namespace>bluerov1</namespace>
+        <joint_name>thruster2_joint</joint_name>
+        <thrust_coefficient>0.004422</thrust_coefficient>
+        <fluid_density>1000</fluid_density>
+        <propeller_diameter>0.1</propeller_diameter>
+      </plugin>
+      <plugin filename="gz-sim-thruster-system" name="gz::sim::systems::Thruster">
+        <namespace>bluerov1</namespace>
+        <joint_name>thruster3_joint</joint_name>
+        <thrust_coefficient>0.004422</thrust_coefficient>
+        <fluid_density>1000</fluid_density>
+        <propeller_diameter>0.1</propeller_diameter>
+      </plugin>
+      <plugin filename="gz-sim-thruster-system" name="gz::sim::systems::Thruster">
+        <namespace>bluerov1</namespace>
+        <joint_name>thruster4_joint</joint_name>
+        <thrust_coefficient>0.004422</thrust_coefficient>
+        <fluid_density>1000</fluid_density>
+        <propeller_diameter>0.1</propeller_diameter>
+      </plugin>
+      <plugin filename="gz-sim-thruster-system" name="gz::sim::systems::Thruster">
+        <namespace>bluerov1</namespace>
+        <joint_name>thruster5_joint</joint_name>
+        <thrust_coefficient>0.004422</thrust_coefficient>
+        <fluid_density>1000</fluid_density>
+        <propeller_diameter>0.1</propeller_diameter>
+      </plugin>
+      <plugin filename="gz-sim-thruster-system" name="gz::sim::systems::Thruster">
+        <namespace>bluerov1</namespace>
+        <joint_name>thruster6_joint</joint_name>
+        <thrust_coefficient>0.004422</thrust_coefficient>
+        <fluid_density>1000</fluid_density>
+        <propeller_diameter>0.1</propeller_diameter>
+      </plugin>
+
+      <plugin name="ArduPilotPlugin" filename="libArduPilotPlugin.so">
+        <fdm_addr>127.0.0.1</fdm_addr>
+        <fdm_port_in>9002</fdm_port_in>
+        <connectionTimeoutMaxCount>5</connectionTimeoutMaxCount>
+        <lock_step>1</lock_step>
+
+        <modelXYZToAirplaneXForwardZDown>0 0 0 3.142 0 0</modelXYZToAirplaneXForwardZDown>
+        <gazeboXYZToNED>0 0 0 3.142 0 1.571</gazeboXYZToNED>
+
+        <imuName>imu_sensor</imuName>
+
+        <control channel="0">
+          <jointName>thruster1_joint</jointName>
+          <servo_min>1100</servo_min>
+          <servo_max>1900</servo_max>
+          <type>COMMAND</type>
+          <cmd_topic>/model/bluerov1/joint/thruster1_joint/cmd_thrust</cmd_topic>
+          <offset>-0.5</offset>
+          <multiplier>100</multiplier>
+        </control>
+        <control channel="1">
+          <jointName>thruster2_joint</jointName>
+          <servo_min>1100</servo_min>
+          <servo_max>1900</servo_max>
+          <type>COMMAND</type>
+          <cmd_topic>/model/bluerov1/joint/thruster2_joint/cmd_thrust</cmd_topic>
+          <offset>-0.5</offset>
+          <multiplier>100</multiplier>
+        </control>
+        <control channel="2">
+          <jointName>thruster3_joint</jointName>
+          <servo_min>1100</servo_min>
+          <servo_max>1900</servo_max>
+          <type>COMMAND</type>
+          <cmd_topic>/model/bluerov1/joint/thruster3_joint/cmd_thrust</cmd_topic>
+          <offset>-0.5</offset>
+          <multiplier>100</multiplier>
+        </control>
+        <control channel="3">
+          <jointName>thruster4_joint</jointName>
+          <servo_min>1100</servo_min>
+          <servo_max>1900</servo_max>
+          <type>COMMAND</type>
+          <cmd_topic>/model/bluerov1/joint/thruster4_joint/cmd_thrust</cmd_topic>
+          <offset>-0.5</offset>
+          <multiplier>100</multiplier>
+        </control>
+        <control channel="4">
+          <jointName>thruster5_joint</jointName>
+          <servo_min>1100</servo_min>
+          <servo_max>1900</servo_max>
+          <type>COMMAND</type>
+          <cmd_topic>/model/bluerov1/joint/thruster5_joint/cmd_thrust</cmd_topic>
+          <offset>-0.5</offset>
+          <multiplier>100</multiplier>
+        </control>
+        <control channel="5">
+          <jointName>thruster6_joint</jointName>
+          <servo_min>1100</servo_min>
+          <servo_max>1900</servo_max>
+          <type>COMMAND</type>
+          <cmd_topic>/model/bluerov1/joint/thruster6_joint/cmd_thrust</cmd_topic>
+          <offset>-0.5</offset>
+          <multiplier>100</multiplier>
+        </control>
+      </plugin>
+    </include>
+
+    <!-- ================= AUV #2 ================= -->
+    <include>
+      <name>bluerov2</name>
+      <pose>12 0 1 0 0 1.57</pose>
+      <uri>model://bluerov2</uri>
+
+      <plugin filename="gz-sim-thruster-system" name="gz::sim::systems::Thruster">
+        <namespace>bluerov2</namespace>
+        <joint_name>thruster1_joint</joint_name>
+        <thrust_coefficient>0.004422</thrust_coefficient>
+        <fluid_density>1000</fluid_density>
+        <propeller_diameter>0.1</propeller_diameter>
+      </plugin>
+      <plugin filename="gz-sim-thruster-system" name="gz::sim::systems::Thruster">
+        <namespace>bluerov2</namespace>
+        <joint_name>thruster2_joint</joint_name>
+        <thrust_coefficient>0.004422</thrust_coefficient>
+        <fluid_density>1000</fluid_density>
+        <propeller_diameter>0.1</propeller_diameter>
+      </plugin>
+      <plugin filename="gz-sim-thruster-system" name="gz::sim::systems::Thruster">
+        <namespace>bluerov2</namespace>
+        <joint_name>thruster3_joint</joint_name>
+        <thrust_coefficient>0.004422</thrust_coefficient>
+        <fluid_density>1000</fluid_density>
+        <propeller_diameter>0.1</propeller_diameter>
+      </plugin>
+      <plugin filename="gz-sim-thruster-system" name="gz::sim::systems::Thruster">
+        <namespace>bluerov2</namespace>
+        <joint_name>thruster4_joint</joint_name>
+        <thrust_coefficient>0.004422</thrust_coefficient>
+        <fluid_density>1000</fluid_density>
+        <propeller_diameter>0.1</propeller_diameter>
+      </plugin>
+      <plugin filename="gz-sim-thruster-system" name="gz::sim::systems::Thruster">
+        <namespace>bluerov2</namespace>
+        <joint_name>thruster5_joint</joint_name>
+        <thrust_coefficient>0.004422</thrust_coefficient>
+        <fluid_density>1000</fluid_density>
+        <propeller_diameter>0.1</propeller_diameter>
+      </plugin>
+      <plugin filename="gz-sim-thruster-system" name="gz::sim::systems::Thruster">
+        <namespace>bluerov2</namespace>
+        <joint_name>thruster6_joint</joint_name>
+        <thrust_coefficient>0.004422</thrust_coefficient>
+        <fluid_density>1000</fluid_density>
+        <propeller_diameter>0.1</propeller_diameter>
+      </plugin>
+
+      <plugin name="ArduPilotPlugin" filename="libArduPilotPlugin.so">
+        <fdm_addr>127.0.0.1</fdm_addr>
+        <fdm_port_in>9012</fdm_port_in>
+        <connectionTimeoutMaxCount>5</connectionTimeoutMaxCount>
+        <lock_step>1</lock_step>
+
+        <modelXYZToAirplaneXForwardZDown>0 0 0 3.142 0 0</modelXYZToAirplaneXForwardZDown>
+        <gazeboXYZToNED>0 0 0 3.142 0 1.571</gazeboXYZToNED>
+
+        <imuName>imu_sensor</imuName>
+
+        <control channel="0">
+          <jointName>thruster1_joint</jointName>
+          <servo_min>1100</servo_min>
+          <servo_max>1900</servo_max>
+          <type>COMMAND</type>
+          <cmd_topic>/model/bluerov2/joint/thruster1_joint/cmd_thrust</cmd_topic>
+          <offset>-0.5</offset>
+          <multiplier>100</multiplier>
+        </control>
+        <control channel="1">
+          <jointName>thruster2_joint</jointName>
+          <servo_min>1100</servo_min>
+          <servo_max>1900</servo_max>
+          <type>COMMAND</type>
+          <cmd_topic>/model/bluerov2/joint/thruster2_joint/cmd_thrust</cmd_topic>
+          <offset>-0.5</offset>
+          <multiplier>100</multiplier>
+        </control>
+        <control channel="2">
+          <jointName>thruster3_joint</jointName>
+          <servo_min>1100</servo_min>
+          <servo_max>1900</servo_max>
+          <type>COMMAND</type>
+          <cmd_topic>/model/bluerov2/joint/thruster3_joint/cmd_thrust</cmd_topic>
+          <offset>-0.5</offset>
+          <multiplier>100</multiplier>
+        </control>
+        <control channel="3">
+          <jointName>thruster4_joint</jointName>
+          <servo_min>1100</servo_min>
+          <servo_max>1900</servo_max>
+          <type>COMMAND</type>
+          <cmd_topic>/model/bluerov2/joint/thruster4_joint/cmd_thrust</cmd_topic>
+          <offset>-0.5</offset>
+          <multiplier>100</multiplier>
+        </control>
+        <control channel="4">
+          <jointName>thruster5_joint</jointName>
+          <servo_min>1100</servo_min>
+          <servo_max>1900</servo_max>
+          <type>COMMAND</type>
+          <cmd_topic>/model/bluerov2/joint/thruster5_joint/cmd_thrust</cmd_topic>
+          <offset>-0.5</offset>
+          <multiplier>100</multiplier>
+        </control>
+        <control channel="5">
+          <jointName>thruster6_joint</jointName>
+          <servo_min>1100</servo_min>
+          <servo_max>1900</servo_max>
+          <type>COMMAND</type>
+          <cmd_topic>/model/bluerov2/joint/thruster6_joint/cmd_thrust</cmd_topic>
+          <offset>-0.5</offset>
+          <multiplier>100</multiplier>
+        </control>
+      </plugin>
+    </include>
+
+    <!-- ================= AUV #3 ================= -->
+    <include>
+      <name>bluerov3</name>
+      <pose>0 12 1 0 0 1.57</pose>
+      <uri>model://bluerov2</uri>
+
+      <plugin filename="gz-sim-thruster-system" name="gz::sim::systems::Thruster">
+        <namespace>bluerov3</namespace>
+        <joint_name>thruster1_joint</joint_name>
+        <thrust_coefficient>0.004422</thrust_coefficient>
+        <fluid_density>1000</fluid_density>
+        <propeller_diameter>0.1</propeller_diameter>
+      </plugin>
+      <plugin filename="gz-sim-thruster-system" name="gz::sim::systems::Thruster">
+        <namespace>bluerov3</namespace>
+        <joint_name>thruster2_joint</joint_name>
+        <thrust_coefficient>0.004422</thrust_coefficient>
+        <fluid_density>1000</fluid_density>
+        <propeller_diameter>0.1</propeller_diameter>
+      </plugin>
+      <plugin filename="gz-sim-thruster-system" name="gz::sim::systems::Thruster">
+        <namespace>bluerov3</namespace>
+        <joint_name>thruster3_joint</joint_name>
+        <thrust_coefficient>0.004422</thrust_coefficient>
+        <fluid_density>1000</fluid_density>
+        <propeller_diameter>0.1</propeller_diameter>
+      </plugin>
+      <plugin filename="gz-sim-thruster-system" name="gz::sim::systems::Thruster">
+        <namespace>bluerov3</namespace>
+        <joint_name>thruster4_joint</joint_name>
+        <thrust_coefficient>0.004422</thrust_coefficient>
+        <fluid_density>1000</fluid_density>
+        <propeller_diameter>0.1</propeller_diameter>
+      </plugin>
+      <plugin filename="gz-sim-thruster-system" name="gz::sim::systems::Thruster">
+        <namespace>bluerov3</namespace>
+        <joint_name>thruster5_joint</joint_name>
+        <thrust_coefficient>0.004422</thrust_coefficient>
+        <fluid_density>1000</fluid_density>
+        <propeller_diameter>0.1</propeller_diameter>
+      </plugin>
+      <plugin filename="gz-sim-thruster-system" name="gz::sim::systems::Thruster">
+        <namespace>bluerov3</namespace>
+        <joint_name>thruster6_joint</joint_name>
+        <thrust_coefficient>0.004422</thrust_coefficient>
+        <fluid_density>1000</fluid_density>
+        <propeller_diameter>0.1</propeller_diameter>
+      </plugin>
+
+      <plugin name="ArduPilotPlugin" filename="libArduPilotPlugin.so">
+        <fdm_addr>127.0.0.1</fdm_addr>
+        <fdm_port_in>9022</fdm_port_in>
+        <connectionTimeoutMaxCount>5</connectionTimeoutMaxCount>
+        <lock_step>1</lock_step>
+
+        <modelXYZToAirplaneXForwardZDown>0 0 0 3.142 0 0</modelXYZToAirplaneXForwardZDown>
+        <gazeboXYZToNED>0 0 0 3.142 0 1.571</gazeboXYZToNED>
+
+        <imuName>imu_sensor</imuName>
+
+        <control channel="0">
+          <jointName>thruster1_joint</jointName>
+          <servo_min>1100</servo_min>
+          <servo_max>1900</servo_max>
+          <type>COMMAND</type>
+          <cmd_topic>/model/bluerov3/joint/thruster1_joint/cmd_thrust</cmd_topic>
+          <offset>-0.5</offset>
+          <multiplier>100</multiplier>
+        </control>
+        <control channel="1">
+          <jointName>thruster2_joint</jointName>
+          <servo_min>1100</servo_min>
+          <servo_max>1900</servo_max>
+          <type>COMMAND</type>
+          <cmd_topic>/model/bluerov3/joint/thruster2_joint/cmd_thrust</cmd_topic>
+          <offset>-0.5</offset>
+          <multiplier>100</multiplier>
+        </control>
+        <control channel="2">
+          <jointName>thruster3_joint</jointName>
+          <servo_min>1100</servo_min>
+          <servo_max>1900</servo_max>
+          <type>COMMAND</type>
+          <cmd_topic>/model/bluerov3/joint/thruster3_joint/cmd_thrust</cmd_topic>
+          <offset>-0.5</offset>
+          <multiplier>100</multiplier>
+        </control>
+        <control channel="3">
+          <jointName>thruster4_joint</jointName>
+          <servo_min>1100</servo_min>
+          <servo_max>1900</servo_max>
+          <type>COMMAND</type>
+          <cmd_topic>/model/bluerov3/joint/thruster4_joint/cmd_thrust</cmd_topic>
+          <offset>-0.5</offset>
+          <multiplier>100</multiplier>
+        </control>
+        <control channel="4">
+          <jointName>thruster5_joint</jointName>
+          <servo_min>1100</servo_min>
+          <servo_max>1900</servo_max>
+          <type>COMMAND</type>
+          <cmd_topic>/model/bluerov3/joint/thruster5_joint/cmd_thrust</cmd_topic>
+          <offset>-0.5</offset>
+          <multiplier>100</multiplier>
+        </control>
+        <control channel="5">
+          <jointName>thruster6_joint</jointName>
+          <servo_min>1100</servo_min>
+          <servo_max>1900</servo_max>
+          <type>COMMAND</type>
+          <cmd_topic>/model/bluerov3/joint/thruster6_joint/cmd_thrust</cmd_topic>
+          <offset>-0.5</offset>
+          <multiplier>100</multiplier>
+        </control>
+      </plugin>
+    </include>
+
+  </world>
+</sdf>
