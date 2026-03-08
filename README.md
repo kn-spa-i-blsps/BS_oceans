@@ -22,7 +22,7 @@ Blue Spark Oceans is a physics-informed multi-AUV simulation environment for per
 2) After that type in:
    `./start_docker.sh` 
 
-3)Once your in the container please remember about one thing:
+3) Once you're in the container please remember about one thing:
   ```
   mkdir /workspace/ardupilot/Tools/Frame_params/Sub
   mv /workspace/bluerov2-4_0_0.params /workspace/ardupilot/Frame_params/Sub
