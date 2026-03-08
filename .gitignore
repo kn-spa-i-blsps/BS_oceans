@@ -1,0 +1,16 @@
+# Logi i pliki tymczasowe
+*.log
+*.tlog
+*.rlog
+eeprom.bin
+mav.parm
+.mavinit.scr
+
+# Foldery budowania (jeśli jakieś powstały lokalnie)
+build/
+install/
+log/
+
+# Środowisko wirtualne Pythona (na wszelki wypadek)
+venv/
+.env/
