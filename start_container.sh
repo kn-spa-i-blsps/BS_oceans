@@ -25,7 +25,7 @@ fi
 
 echo "=== 3. Uruchamianie środowiska ==="
 # Odpalamy kontener z odpowiednimi flagami sieciowymi i podmontowanym repozytorium
-docker run -it \
+docker run -it --rm \
     --net=host \
     --env="DISPLAY=$DISPLAY" \
     --env="QT_X11_NO_MITSHM=1" \
