@@ -1,4 +1,4 @@
-# Blue Spark Oceans - Docker for running container
+# Blue Spark Oceans - container for running simulations
 
 Blue Spark Oceans is a physics-informed multi-AUV simulation environment for persistent subsea monitoring. It uses Gazebo Harmonic (gz-sim8), ArduSub SITL, and ROS 2 bridging for control and logging. The system produces AoI / IVT metrics and energy estimates to support fleet-size, localization, and trajectory studies.
 
@@ -20,12 +20,12 @@ Blue Spark Oceans is a physics-informed multi-AUV simulation environment for per
    `chmod +x start_docker.sh`
 
 2) After that type in:
-   `./start_docker.sh` 
+   `./start_container.sh` 
 
 3) Once you're in the container please remember about one thing:
   ```
   mkdir /workspace/ardupilot/Tools/Frame_params/Sub
-  mv /workspace/bluerov2-4_0_0.params /workspace/ardupilot/Frame_params/Sub
+  mv /workspace/BS_oceans/scripts/bluerov2-4_0_0.params /workspace/ardupilot/Tools/Frame_params/Sub
   ```
 4) These paths should already be specified:
   ```
