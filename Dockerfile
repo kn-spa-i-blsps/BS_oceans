@@ -54,7 +54,12 @@ ENV GZ_SIM_SYSTEM_PLUGIN_PATH=/workspace/ardupilot_gazebo/build
 ENV PATH=/workspace/ardupilot/build/sitl/bin:${PATH}
 ENV ARDUPILOT_HOME=/workspace/ardupilot
 
+RUN mkdir /workspace/ardupilot/Tools/Frame_params/Sub
+RUN mv /workspace/BS_oceans/scripts/bluerov2-4_0_0.params /workspace/ardupilot/Tools/Frame_params/Sub
 # 9. Automatyczne ładowanie środowiska ROS 2
 RUN echo "source /opt/ros/jazzy/setup.bash" >> ~/.bashrc
+
+# Wyłączenie modułu terenu w MAVProxy (zapobiega zawieszaniu symulacji)
+RUN echo "module unload terrain" > /root/.mavinit.scr
 
 CMD ["bash"]
